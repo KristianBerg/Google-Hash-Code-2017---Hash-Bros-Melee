@@ -80,12 +80,11 @@ public class Caching {
         }
         //Before output
         StringBuilder sb = new StringBuilder();
-        sb.append("" + nCachesWithVideo + '\n');
+        sb.append("" + nCachesWithVideo);
         for (int i = 0; i < caches.length; ++i){
-          sb.append("" + i);
+          sb.append("\n" + i);
           for (int vid : caches[i].getVideos())
             sb.append(" " + vid);
-          sb.append('\n');
         }
 
 		printSolution(sb.toString(), filename);
