@@ -10,7 +10,6 @@ public class Cache {
 		endpoints = new ArrayList<>();
 		this.cap = cap;
 		remaining = cap;
-		this.endpoints = endpoints;
 		this.videoSizes = videoSizes;
 		storedVideos = new ArrayList<>();
 	}
