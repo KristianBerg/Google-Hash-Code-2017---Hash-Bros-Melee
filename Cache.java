@@ -79,7 +79,7 @@ public class Cache {
 		for (Endpoint p : endpoints)
 			for (int i = 0; i < p.requests.length; ++i)
 				if (p.cachelatency[id] != 0)
-					requestSum[i] += p.requests[i]*Math.pow(p.datalatency - p.cachelatency[id], 0.8);
+					requestSum[i] += p.requests[i]*Math.pow(p.datalatency - p.cachelatency[id], 0.775)/videoSizes[i];
 		
         ArrayIndexComparator comparator = new ArrayIndexComparator(requestSum);
         Integer[] indexes = comparator.createIndexArray();

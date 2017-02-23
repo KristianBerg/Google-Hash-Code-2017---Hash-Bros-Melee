@@ -119,8 +119,8 @@ public class Caching {
 			i++;
 		}
 		
-		int biggest = Integer.MIN_VALUE;
 		for(int j = 0; j < nCache; j++){
+			int biggest = Integer.MIN_VALUE;
 			for(int k = 0; k < nCache; k++){
 				if(magnitude[k] > biggest){
 					biggest = k;
