@@ -88,7 +88,7 @@ public class Cache {
 				}
 			}
 			if(!addVideo(best)){
-				break;
+                requestSum[best] = 0;
 			} else {
 				requestSum[best] = 0;
 				for(Endpoint e: endpoints){
