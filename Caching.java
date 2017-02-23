@@ -10,7 +10,7 @@ public class Caching {
 	int nVid, nEnd, nReq, nCache, capacity; 
 	
 	public static void main(String[] args){
-		new Caching("me_at_the_zoo.in");
+		new Caching("data/MeAtTheZoo");
 	}
 	
 	public Caching(String filename){
@@ -61,16 +61,26 @@ public class Caching {
 		}
 
         //Put this after all input
-        int[] requestSum = new int[nCache];
+        int[] requestSum = new int[nVid];
         for (Endpoint p : endpoints)
           for (int i = 0; i < p.requests.length; ++i)
             requestSum[i] += p.requests[i];
         int mostRequestedVideo = 0;
         for (int i = 0; i < requestSum.length; ++i)
           mostRequestedVideo = (requestSum[i] > requestSum[mostRequestedVideo])? i : mostRequestedVideo;
-        for (Cache c : caches)
-          c.addVideo(mostRequestedVideo);
+        int nCachesWithVideo = 0;
+        for (Cache c : caches) {
+          if (c.addVideo(mostRequestedVideo))
+            nCachesWithVideo++;
+        }
         //Before output
+        System.out.println("" + nCachesWithVideo);
+        for (int i = 0; i < caches.length; ++i){
+          System.out.print("" + i);
+          for (int vid : caches[i].getVideos())
+            System.out.print(" " + vid);
+          System.out.println();
+        }
 
 		printSolution("0");
 	}
@@ -85,3 +95,4 @@ public class Caching {
 		}
 	}
 }
+
