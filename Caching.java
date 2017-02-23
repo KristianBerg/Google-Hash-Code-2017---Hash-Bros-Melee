@@ -51,6 +51,11 @@ public class Caching {
 		Cache[] caches = new Cache[nCache];
 		for(int i = 0; i < nCache; i++){
 			caches[i] = new Cache(capacity, videoSizes);
+			for(int k = 0; k < nEnd; k++){
+				if(endpoints[k].cachelatency[i] > 0){
+					caches[i].endpoints.add(endpoints[k]);
+				}
+			}
 		}
 		printSolution("0");
 	}
