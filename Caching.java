@@ -46,18 +46,30 @@ public class Caching {
 			int vid = scan.nextInt();
 			int id = scan.nextInt();
 			endpoints[id].requests[vid] = scan.nextInt();
-		}
-		
-		printSolution("0");
-	}
-	
-	private void printSolution(String solution) {
-		try {
-			PrintWriter writer = new PrintWriter("caching.txt");
-			writer.println(solution);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+
+        //Put this after all input
+        int[] requestSum = new int[cacheSize];
+        for (Endpoint p : endpoints)
+          for (int i = 0; i < p.requests.length; ++i)
+            requestSum[i] += p.requests[i];
+        int mostRequestedVideo = 0;
+        for (int i = 0; i < requestSum.length; ++i)
+          mostRequestedVideo = (requestSum[i] > requestSum[mostRequestedVideo])? i : mostRequestedVideo;
+        for (Cache c : caches)
+          c.addVideo(i);
+        //Before output
+
+        printSolution("0");
+    }
+
+    private void printSolution(String solution) {
+      try {
+        PrintWriter writer = new PrintWriter("caching.txt");
+        writer.println(solution);
+        writer.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
 }
