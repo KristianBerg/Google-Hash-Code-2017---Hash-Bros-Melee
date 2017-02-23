@@ -67,18 +67,17 @@ public class Caching {
 			}
 		}
 		
-		
-		
-        int nCachesWithVideo = strategy1(endpoints, caches);
+		int nCachesWithVideo = strategy1(endpoints, caches);
+        
         //Before output
         StringBuilder sb = new StringBuilder();
-        sb.append("" + nCachesWithVideo + '\n');
+        sb.append("" + nCachesWithVideo);
         for (int i = 0; i < caches.length; ++i){
-          sb.append("" + i);
+          sb.append("\n" + i);
           for (int vid : caches[i].getVideos())
             sb.append(" " + vid);
-          sb.append('\n');
         }
+        
 
 		printSolution(sb.toString(), filename);
 	}
@@ -115,7 +114,7 @@ public class Caching {
 	private void printSolution(String solution, String filename) {
 		try {
 			PrintWriter writer = new PrintWriter("data/" + filename + ".out");
-			writer.println(solution);
+			writer.print(solution);
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
