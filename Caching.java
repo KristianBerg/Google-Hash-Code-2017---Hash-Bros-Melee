@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -24,7 +25,26 @@ public class Caching {
 		nReq = scan.nextInt();
 		nCache = scan.nextInt();
 		capacity = scan.nextInt();
-		scan.nextLine();
+		int[] videoSizes = new int[nVid];
+		for(int i = 0; i < nVid; i++){
+			videoSizes[i] = scan.nextInt();
+		}
+		
+		Endpoint[] endPoints = new Endpoint[nEnd];
+		for(int i = 0; i < nEnd; i++){
+			int dataLatency = scan.nextInt();
+			int connections = scan.nextInt();
+			ArrayList<Integer> endpointList = new ArrayList<Integer>();
+			for(int k = 0; k < connections; k++){
+				int[] end = {scan.nextInt(), scan.nextInt()};
+			}
+		}
+		
+		for(int i = 0; i < nReq; i++){
+			int[] req = {scan.nextInt(), scan.nextInt(), scan.nextInt()};
+			
+		}
+		
 		printSolution("0");
 	}
 	
