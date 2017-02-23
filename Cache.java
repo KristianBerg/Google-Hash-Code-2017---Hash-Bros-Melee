@@ -22,4 +22,8 @@ public class Cache {
 		}
 		return false;
 	}
+
+    public ArrayList<Integer> getVideos() {
+      return storedVideos;
+    }
 }
