@@ -61,7 +61,7 @@ public class Caching {
 		}
 
         //Put this after all input
-        int[] requestSum = new int[cacheSize];
+        int[] requestSum = new int[nCache];
         for (Endpoint p : endpoints)
           for (int i = 0; i < p.requests.length; ++i)
             requestSum[i] += p.requests[i];
@@ -69,7 +69,7 @@ public class Caching {
         for (int i = 0; i < requestSum.length; ++i)
           mostRequestedVideo = (requestSum[i] > requestSum[mostRequestedVideo])? i : mostRequestedVideo;
         for (Cache c : caches)
-          c.addVideo(i);
+          c.addVideo(mostRequestedVideo);
         //Before output
 
 		printSolution("0");
