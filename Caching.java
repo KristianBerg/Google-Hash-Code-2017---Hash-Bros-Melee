@@ -67,7 +67,7 @@ public class Caching {
 			}
 		}
 		
-		int nCachesWithVideo = strategy1(endpoints, caches);
+		int nCachesWithVideo = strategy2(endpoints, caches);
         
         //Before output
         StringBuilder sb = new StringBuilder();
@@ -110,6 +110,34 @@ public class Caching {
         }
 		return nCachesWithVideo;
 	}
+	
+	private int strategy2(Endpoint[] endpoints, Cache[] caches){
+		int[] magnitude = new int[nCache];
+		int i = 0;
+		for(Cache c: caches){
+			magnitude[i] = c.endpoints.size();
+			i++;
+		}
+		
+		int biggest = Integer.MIN_VALUE;
+		for(int j = 0; j < nCache; j++){
+			for(int k = 0; k < nCache; k++){
+				if(magnitude[k] > biggest){
+					biggest = k;
+				}
+			}
+			caches[biggest].calcuteMostPopularVideos3();
+			magnitude[biggest] = Integer.MIN_VALUE;
+		}
+		
+		int nCachesWithVideo = 0;
+        for (Cache c : caches) {
+          if (c.cap != c.remaining)
+            nCachesWithVideo++;
+        }
+		return nCachesWithVideo;
+	}
+	
 	
 	private void printSolution(String solution, String filename) {
 		try {

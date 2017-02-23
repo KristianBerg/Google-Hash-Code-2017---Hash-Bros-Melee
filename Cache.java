@@ -78,7 +78,7 @@ public class Cache {
 		for (Endpoint p : endpoints)
 			for (int i = 0; i < p.requests.length; ++i)
 				if (p.cachelatency[id] != 0)
-					requestSum[i] += p.requests[i]*(p.datalatency - p.cachelatency[id]);
+					requestSum[i] += p.requests[i]*Math.pow(p.datalatency - p.cachelatency[id], 0.8);
 		
 		for(int i = 0; i < videoSizes.length; i++){
 			int best = 0;
