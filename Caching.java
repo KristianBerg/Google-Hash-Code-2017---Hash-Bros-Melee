@@ -4,19 +4,24 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.StringBuilder;
 
 
 public class Caching {
 	int nVid, nEnd, nReq, nCache, capacity; 
+    
+    static String[] files = {"example", "kittens", "meatthezoo", "trendingtoday", "videosworthspreading"};
 	
 	public static void main(String[] args){
-		new Caching("data/MeAtTheZoo");
+      for (String filename : files){
+		new Caching(filename);
+      }
 	}
 	
 	public Caching(String filename){
 		Scanner scan = null;
 		try {
-			scan = new Scanner(new File(filename));
+			scan = new Scanner(new File("data/" + filename + ".in"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -74,20 +79,21 @@ public class Caching {
             nCachesWithVideo++;
         }
         //Before output
-        System.out.println("" + nCachesWithVideo);
+        StringBuilder sb = new StringBuilder();
+        sb.append("" + nCachesWithVideo + '\n');
         for (int i = 0; i < caches.length; ++i){
-          System.out.print("" + i);
+          sb.append("" + i);
           for (int vid : caches[i].getVideos())
-            System.out.print(" " + vid);
-          System.out.println();
+            sb.append(" " + vid);
+          sb.append('\n');
         }
 
-		printSolution("0");
+		printSolution(sb.toString(), filename);
 	}
 	
-	private void printSolution(String solution) {
+	private void printSolution(String solution, String filename) {
 		try {
-			PrintWriter writer = new PrintWriter("caching.txt");
+			PrintWriter writer = new PrintWriter("data/" + filename + ".out");
 			writer.println(solution);
 			writer.close();
 		} catch (IOException e) {
