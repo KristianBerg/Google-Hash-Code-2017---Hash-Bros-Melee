@@ -15,10 +15,12 @@ public class Caching {
 	public static void main(String[] args){
       for (String filename : files){
 		new Caching(filename);
+		System.out.println("done");
       }
 	}
 	
 	public Caching(String filename){
+		Cache.nextId = 0;
 		Scanner scan = null;
 		try {
 			scan = new Scanner(new File("data/" + filename + ".in"));
@@ -64,8 +66,24 @@ public class Caching {
 				}
 			}
 		}
+		
+		int nCachesWithVideo = strategy1(endpoints, caches);
+        
+        //Before output
+        StringBuilder sb = new StringBuilder();
+        sb.append("" + nCachesWithVideo);
+        for (int i = 0; i < caches.length; ++i){
+          sb.append("\n" + i);
+          for (int vid : caches[i].getVideos())
+            sb.append(" " + vid);
+        }
+        
 
-        //Put this after all input
+		printSolution(sb.toString(), filename);
+	}
+
+	private int strategy0(Endpoint[] endpoints, Cache[] caches) {
+		//Put this after all input
         int[] requestSum = new int[nVid];
         for (Endpoint p : endpoints)
           for (int i = 0; i < p.requests.length; ++i)
@@ -78,22 +96,25 @@ public class Caching {
           if (c.addVideo(mostRequestedVideo))
             nCachesWithVideo++;
         }
-        //Before output
-        StringBuilder sb = new StringBuilder();
-        sb.append("" + nCachesWithVideo);
-        for (int i = 0; i < caches.length; ++i){
-          sb.append("\n" + i);
-          for (int vid : caches[i].getVideos())
-            sb.append(" " + vid);
+		return nCachesWithVideo;
+	}
+	
+	private int strategy1(Endpoint[] endpoints, Cache[] caches){
+		for(Cache c: caches){
+			c.calcuteMostPopularVideos3();
+		}
+		int nCachesWithVideo = 0;
+        for (Cache c : caches) {
+          if (c.cap != c.remaining)
+            nCachesWithVideo++;
         }
-
-		printSolution(sb.toString(), filename);
+		return nCachesWithVideo;
 	}
 	
 	private void printSolution(String solution, String filename) {
 		try {
 			PrintWriter writer = new PrintWriter("data/" + filename + ".out");
-			writer.println(solution);
+			writer.print(solution);
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
