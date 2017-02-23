@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Cache {
 	int cap, remaining;
@@ -80,21 +81,32 @@ public class Cache {
 				if (p.cachelatency[id] != 0)
 					requestSum[i] += p.requests[i]*Math.pow(p.datalatency - p.cachelatency[id], 0.8);
 		
-		for(int i = 0; i < videoSizes.length; i++){
-			int best = 0;
-			for(int k = 0; k < videoSizes.length; k++){
-				if(requestSum[k] > requestSum[best]){
-					best = k;
-				}
-			}
-			if(!addVideo(best)){
-				break;
-			} else {
-				requestSum[best] = 0;
-				for(Endpoint e: endpoints){
-					e.requests[best] = 0;
-				}
-			}
-		}
+        ArrayIndexComparator comparator = new ArrayIndexComparator(requestSum);
+        Integer[] indexes = comparator.createIndexArray();
+        Arrays.sort(indexes, comparator);
+        for (int i = indexes.length - 1; i >= 0; --i) {
+          int currBest = indexes[i];
+          if (addVideo(currBest)){
+            for (Endpoint e: endpoints){
+              e.requests[currBest] = 0;
+            }
+          }
+        }
+		//for(int i = 0; i < videoSizes.length; i++){
+		//	int best = 0;
+		//	for(int k = 0; k < videoSizes.length; k++){
+		//		if(requestSum[k] > requestSum[best]){
+		//			best = k;
+		//		}
+		//	}
+		//	if(!addVideo(best)){
+        //        requestSum[best] = 0;
+		//	} else {
+		//		requestSum[best] = 0;
+		//		for(Endpoint e: endpoints){
+		//			e.requests[best] = 0;
+		//		}
+		//	}
+		//}
 	}
 }
