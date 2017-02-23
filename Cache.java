@@ -5,6 +5,8 @@ public class Cache {
 	ArrayList<Endpoint> endpoints;
 	int[] videoSizes;
 	ArrayList<Integer> storedVideos;
+	static int nextId = 0;
+	int id = 0;
 
 	public Cache(int cap, int[] videoSizes) {
 		endpoints = new ArrayList<>();
@@ -12,6 +14,8 @@ public class Cache {
 		remaining = cap;
 		this.videoSizes = videoSizes;
 		storedVideos = new ArrayList<>();
+		id = nextId;
+		nextId++;
 	}
 
 	public boolean addVideo(int id) {
@@ -39,6 +43,54 @@ public class Cache {
 				break;
 			}
 			requestSum[best] = 0;
+		}
+	}
+	
+	public void calcuteMostPopularVideos2() {
+		int[] requestSum = new int[videoSizes.length];
+		for (Endpoint p : endpoints)
+			for (int i = 0; i < p.requests.length; ++i)
+				requestSum[i] += p.requests[i];
+		
+		for(int i = 0; i < videoSizes.length; i++){
+			int best = 0;
+			for(int k = 0; k < videoSizes.length; k++){
+				if(requestSum[k] > requestSum[best]){
+					best = k;
+				}
+			}
+			if(!addVideo(best)){
+				break;
+			} else {
+				requestSum[best] = 0;
+				for(Endpoint e: endpoints){
+					e.requests[best] = 0;
+				}
+			}
+		}
+	}
+
+	public void calcuteMostPopularVideos3() {
+		double[] requestSum = new double[videoSizes.length];
+		for (Endpoint p : endpoints)
+			for (int i = 0; i < p.requests.length; ++i)
+				requestSum[i] += p.requests[i]*1000/p.cachelatency[id];
+		
+		for(int i = 0; i < videoSizes.length; i++){
+			int best = 0;
+			for(int k = 0; k < videoSizes.length; k++){
+				if(requestSum[k] > requestSum[best]){
+					best = k;
+				}
+			}
+			if(!addVideo(best)){
+				break;
+			} else {
+				requestSum[best] = 0;
+				for(Endpoint e: endpoints){
+					e.requests[best] = 0;
+				}
+			}
 		}
 	}
 }
