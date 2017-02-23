@@ -48,6 +48,13 @@ public class Caching {
 			endpoints[id].requests[vid] = scan.nextInt();
         }
 
+
+		
+		Cache[] caches = new Cache[nCache];
+		for(int i = 0; i < nCache; i++){
+			caches[i] = new Cache(capacity, videoSizes);
+		}
+
         //Put this after all input
         int[] requestSum = new int[cacheSize];
         for (Endpoint p : endpoints)
@@ -60,16 +67,16 @@ public class Caching {
           c.addVideo(i);
         //Before output
 
-        printSolution("0");
-    }
-
-    private void printSolution(String solution) {
-      try {
-        PrintWriter writer = new PrintWriter("caching.txt");
-        writer.println(solution);
-        writer.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
+		printSolution("0");
+	}
+	
+	private void printSolution(String solution) {
+		try {
+			PrintWriter writer = new PrintWriter("caching.txt");
+			writer.println(solution);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
