@@ -22,4 +22,23 @@ public class Cache {
 		}
 		return false;
 	}
+
+	public void calcuteMostPopularVideos() {
+		int[] requestSum = new int[videoSizes.length];
+		for (Endpoint p : endpoints)
+			for (int i = 0; i < p.requests.length; ++i)
+				requestSum[i] += p.requests[i];
+		for(int i = 0; i < videoSizes.length; i++){
+			int best = 0;
+			for(int k = 0; k < videoSizes.length; k++){
+				if(requestSum[k] > requestSum[best]){
+					best = k;
+				}
+			}
+			if(!addVideo(best)){
+				break;
+			}
+			requestSum[best] = 0;
+		}
+	}
 }
