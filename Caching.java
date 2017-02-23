@@ -30,19 +30,22 @@ public class Caching {
 			videoSizes[i] = scan.nextInt();
 		}
 		
-		Endpoint[] endPoints = new Endpoint[nEnd];
+		Endpoint[] endpoints = new Endpoint[nEnd];
 		for(int i = 0; i < nEnd; i++){
 			int dataLatency = scan.nextInt();
 			int connections = scan.nextInt();
-			ArrayList<Integer> endpointList = new ArrayList<Integer>();
+			ArrayList<Integer[]> cacheList = new ArrayList<Integer[]>();			
+			endpoints[i] = new Endpoint(i, dataLatency, new int[nVid], new int[nCache]);
 			for(int k = 0; k < connections; k++){
-				int[] end = {scan.nextInt(), scan.nextInt()};
+				int id = scan.nextInt();
+				endpoints[i].cachelatency[id] = scan.nextInt(); 
 			}
 		}
 		
 		for(int i = 0; i < nReq; i++){
-			int[] req = {scan.nextInt(), scan.nextInt(), scan.nextInt()};
-			
+			int vid = scan.nextInt();
+			int id = scan.nextInt();
+			endpoints[id].requests[vid] = scan.nextInt();
 		}
 		
 		printSolution("0");
