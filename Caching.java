@@ -48,6 +48,10 @@ public class Caching {
 			endpoints[id].requests[vid] = scan.nextInt();
 		}
 		
+		Cache[] caches = new Cache[nCache];
+		for(int i = 0; i < nCache; i++){
+			caches[i] = new Cache(capacity, videoSizes);
+		}
 		printSolution("0");
 	}
 	
